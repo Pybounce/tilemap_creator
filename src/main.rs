@@ -1,6 +1,6 @@
 use std::{collections::HashSet, hash::{DefaultHasher, Hash, Hasher}};
 
-use image::{error, imageops, DynamicImage, GenericImage, GenericImageView, ImageBuffer, Rgba};
+use image::{imageops, DynamicImage, GenericImage, GenericImageView, ImageBuffer, Rgba};
 
 
 const TILE_SIZE: u32 = 16;
@@ -31,7 +31,7 @@ fn main() {
 fn get_tiles(img: &DynamicImage) -> Vec<ImageBuffer<Rgba<u8>, Vec<u8>>> {
 
     let front_layer_indexes: Vec<u8> = (20..21).collect();
-    let mid_layer_indexes: Vec<u8> = (0..12).collect();
+    let mid_layer_indexes: Vec<u8> = (0..14).collect();
     let back_layer_indexes: Vec<u8> = (21..22).collect();
     let mut all_tiles = Vec::new();
 
@@ -41,7 +41,7 @@ fn get_tiles(img: &DynamicImage) -> Vec<ImageBuffer<Rgba<u8>, Vec<u8>>> {
     let back_tiles = get_tiles_by_index(img, &back_layer_indexes);
 
     all_tiles.append(&mut back_tiles.clone());
-    all_tiles.append(&mut overlay_tiles(&back_tiles, &front_tiles));
+    //all_tiles.append(&mut overlay_tiles(&back_tiles, &front_tiles));
 
     let mut back_middle_tiles = overlay_tiles(&back_tiles, &middle_tiles);
     back_middle_tiles = get_rotated_permutations(&back_middle_tiles);
@@ -49,9 +49,9 @@ fn get_tiles(img: &DynamicImage) -> Vec<ImageBuffer<Rgba<u8>, Vec<u8>>> {
 
     all_tiles.append(&mut back_middle_tiles);
     all_tiles.append(&mut back_middle_front_tiles);
-    let all_distinct_tiles = distinct_image_buffers(all_tiles);
+    //let all_distinct_tiles = distinct_image_buffers(all_tiles);
 
-    return all_distinct_tiles;
+    return all_tiles;
 }
 
 fn overlay_tiles(back_tiles: &Vec<ImageBuffer<Rgba<u8>, Vec<u8>>>, front_tiles: &Vec<ImageBuffer<Rgba<u8>, Vec<u8>>>) -> Vec<ImageBuffer<Rgba<u8>, Vec<u8>>> {
