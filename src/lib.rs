@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use hash::calculate_hash;
 use image::{imageops::{overlay, rotate180, rotate270, rotate90}, DynamicImage, GenericImage, GenericImageView, ImageBuffer, Rgba};
